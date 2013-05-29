@@ -1,0 +1,27 @@
+{
+  "name": "node-rr",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.2.5",
+    "jade": "*",
+    "ya-csv": "~0.9.2",
+    "librr": "0.0.2"
+  },
+  "description": "ERROR: No README.md file found!",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stanley-gu/node-rr.git"
+  },
+  "keywords": [
+    "roadrunner",
+    "simulator",
+    "node"
+  ],
+  "author": "Stanley Gu",
+  "license": "BSD"
+}
