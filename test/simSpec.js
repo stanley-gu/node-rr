@@ -35,16 +35,26 @@ describe('simulator', function() {
           }
           var output;
           try {
-            output = r[data.method].apply(this, data.params);
+            rrOutput = r[data.method].apply(this, data.params);
             //console.log(output);
             if (data.method.indexOf('simulate') > -1) {
               // format simulation data
-              var text = r.rrDataToString(output).split('\n');
+              var text = r.rrDataToString(rrOutput).split('\n');
               // remove empty entry at the end;
               text.pop();
               output = text.map(function(line) {
                 return line.split('\t');
               }, this);
+            }
+
+            if (data.postProcess) {
+              output = r[data.postProcess](rrOutput);
+            } else {
+              output = rrOutput;
+            }
+
+            if (data.freeMem) {
+              r[data.freeMem](rrOutput);
             }
           } catch(e) {
             output = e;
@@ -73,8 +83,15 @@ describe('simulator', function() {
         method: 'simulateEx',
         params: [0, 100, 100]
       });
+      socket.emit('run', {
+        method: 'getFloatingSpeciesIds',
+        params: [],
+        postProcess: 'stringArrayToString',
+        freeMem: 'freeStringArray'
+      });
+
       socket.on('response', function(data) {
-        if(data.method.indexOf('simulate') > -1) {
+        if(data.method.indexOf('getFloatingSpeciesIds') > -1) {
           done();
         }
       });
