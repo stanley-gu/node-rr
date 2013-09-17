@@ -25,9 +25,11 @@ io.sockets.on('connection', function(s) {
         output = text.map(function(line) {
           return line.split('\t');
         }, this);
-      }
 
-      if (data.postProcess) {
+        // clear memory usage
+        r.freeResult(rrOutput);
+      } else if (data.postProcess) {
+        // general steps for post processing output
         output = r[data.postProcess](rrOutput);
       } else {
         output = rrOutput;
