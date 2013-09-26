@@ -26,8 +26,6 @@ io.sockets.on('connection', function(s) {
           return line.split('\t');
         }, this);
 
-        // clear memory usage
-        r.freeResult(rrOutput);
       } else if (data.postProcess) {
         // general steps for post processing output
         output = r[data.postProcess](rrOutput);
